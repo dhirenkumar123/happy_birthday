@@ -446,3 +446,33 @@ function confetti() {
 
   if (!onlyOnKonami) poof();
 };
+
+/* ===== GALLERY SCRIPT ===== */
+let index = 1
+const total = 10
+const slide = document.getElementById("slide")
+
+function next() {
+  index = index >= total ? 1 : index + 1
+  slide.src = `images/${index}.jpg`
+}
+
+function prev() {
+  index = index <= 1 ? total : index - 1
+  slide.src = `images/${index}.jpg`
+}
+
+/* Swipe support */
+let startX = 0
+const slider = document.getElementById("slider")
+
+slider.addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX
+})
+
+slider.addEventListener("touchend", e => {
+  const endX = e.changedTouches[0].clientX
+  if (startX - endX > 50) next()
+  if (endX - startX > 50) prev()
+})
+
